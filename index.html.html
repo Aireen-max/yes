@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keshav Medicos – Chirag Dilli, New Delhi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1a6b4a;
+      --green-light: #2d9266;
+      --green-pale: #e8f5ef;
+      --cream: #faf8f4;
+      --text: #1c2826;
+      --muted: #6b7f78;
+      --white: #ffffff;
+      --accent: #e8a020;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e0ebe6;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--green);
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text);
+      font-size: 0.88rem; font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--green); color: white;
+      padding: 0.5rem 1.2rem; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--green-light); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 100px 5% 60px;
+      background: linear-gradient(135deg, #f0faf5 0%, #faf8f4 60%, #fff8ee 100%);
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,107,74,0.07) 0%, transparent 70%);
+    }
+    .hero-text { animation: fadeUp 0.8s ease both; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--green-pale); color: var(--green);
+      padding: 0.35rem 0.9rem; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 500;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(26,107,74,0.15);
+    }
+    .hero-badge::before { content: '★'; color: var(--accent); }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.12; font-weight: 700;
+      color: var(--text); margin-bottom: 1.2rem;
+    }
+    h1 em { color: var(--green); font-style: normal; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.7; max-width: 440px;
+      margin-bottom: 2.2rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green); color: white;
+      padding: 0.85rem 2rem; border-radius: 50px;
+      text-decoration: none; font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(26,107,74,0.3);
+    }
+    .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,107,74,0.35); }
+    .btn-secondary {
+      background: white; color: var(--green);
+      padding: 0.85rem 2rem; border-radius: 50px;
+      text-decoration: none; font-weight: 500;
+      font-size: 0.95rem; border: 2px solid var(--green);
+      transition: all 0.25s;
+    }
+    .btn-secondary:hover { background: var(--green-pale); }
+
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-card-stack { position: relative; width: 360px; height: 380px; }
+    .card-bg {
+      position: absolute; width: 280px; height: 320px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      top: 30px; left: 40px;
+      box-shadow: 0 20px 60px rgba(26,107,74,0.3);
+    }
+    .card-main {
+      position: absolute; top: 0; left: 0;
+      width: 300px; background: white;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .card-main h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .card-main p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .rating-row {
+      display: flex; align-items: center; gap: 0.4rem;
+      margin-top: 1rem; padding-top: 1rem;
+      border-top: 1px solid #f0f0f0;
+    }
+    .stars { color: var(--accent); font-size: 0.9rem; }
+    .rating-text { font-size: 0.82rem; color: var(--muted); }
+    .rating-num { font-weight: 600; color: var(--text); font-size: 0.9rem; }
+    .float-pill {
+      position: absolute; bottom: 40px; right: 0;
+      background: white; border-radius: 50px;
+      padding: 0.6rem 1rem; display: flex; align-items: center; gap: 0.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      font-size: 0.8rem; font-weight: 500;
+    }
+    .pill-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+
+    /* ── STATS ── */
+    .stats-bar {
+      background: var(--green);
+      padding: 2.5rem 5%;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; text-align: center;
+    }
+    .stat { color: white; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700;
+      display: block;
+    }
+    .stat-label { font-size: 0.82rem; opacity: 0.8; margin-top: 0.2rem; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 90px 5%; }
+    .section-tag {
+      display: inline-block;
+      background: var(--green-pale); color: var(--green);
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .section-title em { color: var(--green); font-style: normal; }
+    .section-sub { color: var(--muted); line-height: 1.7; max-width: 520px; }
+
+    /* ── SERVICES ── */
+    #services { background: white; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .service-card {
+      padding: 2rem; border-radius: 20px;
+      border: 1px solid #e8eeeb;
+      transition: all 0.3s;
+      cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); border-color: var(--green-pale); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .service-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── WHY US ── */
+    #why {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      background: var(--cream);
+    }
+    .why-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .why-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.2rem; border-radius: 16px;
+      transition: background 0.2s;
+    }
+    .why-item:hover { background: var(--green-pale); }
+    .why-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--green); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .why-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .why-item p { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+    .why-visual {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .why-box {
+      border-radius: 20px; padding: 1.8rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 160px;
+    }
+    .why-box.green { background: var(--green); color: white; }
+    .why-box.pale { background: var(--green-pale); }
+    .why-box.white { background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .why-box.accent { background: var(--accent); color: white; }
+    .why-box .big { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; }
+    .why-box .label { font-size: 0.8rem; opacity: 0.85; margin-top: 0.3rem; }
+    .why-box .icon { font-size: 1.8rem; }
+
+    /* ── REVIEWS ── */
+    #reviews { background: white; }
+    .reviews-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+    .overall-rating {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--green-pale); padding: 1rem 1.5rem; border-radius: 16px;
+    }
+    .rating-big { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--green); }
+    .stars-big { color: var(--accent); font-size: 1.2rem; }
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .review-card {
+      padding: 1.8rem; border-radius: 20px;
+      border: 1px solid #e8eeeb;
+      transition: box-shadow 0.2s;
+    }
+    .review-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.07); }
+    .review-stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.8rem; }
+    .review-text { font-size: 0.87rem; color: var(--text); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic; }
+    .reviewer { display: flex; align-items: center; gap: 0.7rem; }
+    .reviewer-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--green); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 600; flex-shrink: 0;
+    }
+    .reviewer-name { font-size: 0.88rem; font-weight: 600; }
+    .reviewer-date { font-size: 0.76rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: linear-gradient(135deg, var(--green) 0%, #0f4a32 100%);
+      color: white;
+    }
+    #contact .section-title { color: white; }
+    #contact .section-sub { color: rgba(255,255,255,0.75); }
+    #contact .section-tag { background: rgba(255,255,255,0.15); color: white; }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; margin-top: 3rem; align-items: start;
+    }
+    .contact-items { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.2rem; border-radius: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .contact-item-icon {
+      font-size: 1.4rem; width: 44px; height: 44px;
+      border-radius: 12px; background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-item h4 { font-size: 0.82rem; opacity: 0.7; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .contact-item p { font-size: 0.95rem; line-height: 1.5; }
+    .map-placeholder {
+      border-radius: 20px; overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.15);
+      height: 320px; background: rgba(255,255,255,0.05);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+      text-align: center;
+    }
+    .map-placeholder .map-icon { font-size: 3rem; }
+    .map-placeholder p { opacity: 0.75; font-size: 0.9rem; }
+    .map-link {
+      display: inline-block; margin-top: 0.5rem;
+      background: white; color: var(--green);
+      padding: 0.6rem 1.4rem; border-radius: 50px;
+      text-decoration: none; font-weight: 500; font-size: 0.85rem;
+      transition: transform 0.2s;
+    }
+    .map-link:hover { transform: scale(1.03); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a2e1e; color: rgba(255,255,255,0.6);
+      text-align: center; padding: 2rem 5%;
+      font-size: 0.82rem;
+    }
+    footer strong { color: white; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      .hero-visual { display: none; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      #why { grid-template-columns: 1fr; gap: 2rem; }
+      .why-visual { order: -1; }
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .reviews-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      nav .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Keshav <span>Medicos</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Find Us</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-badge">5.0 ★ Google Rated · New Delhi</div>
+    <h1>Your Health, <em>Our Priority</em></h1>
+    <p class="hero-sub">Keshav Medicos is Chirag Dilli's trusted medical store — offering genuine medicines, expert guidance, and compassionate care to your family since years.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Our Services</a>
+      <a href="#contact" class="btn-secondary">Contact Us</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="card-bg"></div>
+      <div class="card-main">
+        <div class="card-icon">💊</div>
+        <h3>Keshav Medicos</h3>
+        <p>Medical Center & Pharmacy<br>Chirag Dilli, New Delhi</p>
+        <div class="rating-row">
+          <span class="stars">★★★★★</span>
+          <span class="rating-num">5.0</span>
+          <span class="rating-text">· Google Reviews</span>
+        </div>
+      </div>
+      <div class="float-pill">
+        <span class="pill-dot"></span> Open Now
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><span class="stat-num">5.0★</span><div class="stat-label">Google Rating</div></div>
+  <div class="stat"><span class="stat-num">100%</span><div class="stat-label">Genuine Medicines</div></div>
+  <div class="stat"><span class="stat-num">1000+</span><div class="stat-label">Happy Customers</div></div>
+  <div class="stat"><span class="stat-num">Fast</span><div class="stat-label">Same-Day Service</div></div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag">What We Offer</div>
+  <h2 class="section-title">Complete <em>Healthcare</em> Solutions</h2>
+  <p class="section-sub">From prescription medicines to everyday wellness products, we have everything you need under one roof.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">💊</div>
+      <h3>Prescription Medicines</h3>
+      <p>All branded and generic prescription drugs available. Our licensed team ensures safe dispensing and dosage guidance.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏥</div>
+      <h3>OTC Medications</h3>
+      <p>Wide range of over-the-counter products for common ailments — fever, cold, cough, pain relief, and more.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🩺</div>
+      <h3>Medical Devices</h3>
+      <p>BP monitors, glucometers, thermometers, nebulizers, and other healthcare devices for home use.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🍼</div>
+      <h3>Baby & Mother Care</h3>
+      <p>Trusted brands for infant nutrition, baby skincare, diapers, and maternity care products.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌿</div>
+      <h3>Vitamins & Supplements</h3>
+      <p>Immunity boosters, multivitamins, protein supplements, and herbal health products.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧴</div>
+      <h3>Personal Care</h3>
+      <p>Skincare, hair care, dental hygiene, and personal wellness products from trusted brands.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div>
+    <div class="section-tag">Why Choose Us</div>
+    <h2 class="section-title">Trusted by <em>Families</em> Across Chirag Dilli</h2>
+    <p class="section-sub">We are more than a pharmacy — we are your neighbourhood health partner.</p>
+    <div class="why-list">
+      <div class="why-item">
+        <div class="why-icon">✅</div>
+        <div>
+          <h4>100% Genuine Medicines</h4>
+          <p>We source directly from certified distributors. Every product is authentic and quality-checked.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">👨‍⚕️</div>
+        <div>
+          <h4>Expert Pharmacist Guidance</h4>
+          <p>Our trained staff is always ready to answer your medicine-related queries and assist you safely.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">💰</div>
+        <div>
+          <h4>Affordable Prices</h4>
+          <p>Quality healthcare should not be expensive. We offer competitive prices on all products.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">📍</div>
+        <div>
+          <h4>Conveniently Located</h4>
+          <p>Easily accessible on Iron Railing Road, Chirag Dilli — serving the community with care.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="why-visual">
+    <div class="why-box green">
+      <div class="icon">⭐</div>
+      <div><div class="big">5.0</div><div class="label">Google Rating</div></div>
+    </div>
+    <div class="why-box white">
+      <div class="icon">🏪</div>
+      <div><div class="big" style="font-size:1.4rem;color:var(--green);">Trusted</div><div class="label" style="color:var(--muted);">Medical Store</div></div>
+    </div>
+    <div class="why-box pale">
+      <div class="icon">💊</div>
+      <div><div class="big" style="color:var(--green);">1000+</div><div class="label" style="color:var(--muted);">Products</div></div>
+    </div>
+    <div class="why-box accent">
+      <div class="icon">❤️</div>
+      <div><div class="big">Care</div><div class="label">First Always</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-header">
+    <div>
+      <div class="section-tag">Customer Reviews</div>
+      <h2 class="section-title">What Our <em>Customers</em> Say</h2>
+    </div>
+    <div class="overall-rating">
+      <div class="rating-big">5.0</div>
+      <div>
+        <div class="stars-big">★★★★★</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.2rem;">Google Reviews</div>
+      </div>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Excellent service! The staff is very helpful and knowledgeable. Always have the medicines I need, even rare ones. Highly recommend to everyone in the area."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">R</div>
+        <div><div class="reviewer-name">Ramesh Kumar</div><div class="reviewer-date">2 months ago</div></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Best medical store in Chirag Dilli. Genuine medicines at fair prices. The pharmacist always gives good advice. Very trustworthy place for your family's health."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">P</div>
+        <div><div class="reviewer-name">Priya Sharma</div><div class="reviewer-date">1 month ago</div></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Been visiting for years. They have everything — from prescription medicines to baby products. The staff remembers regular customers and provides personal attention."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">A</div>
+        <div><div class="reviewer-name">Amit Verma</div><div class="reviewer-date">3 weeks ago</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Get In Touch</div>
+  <h2 class="section-title">Visit <em>Us Today</em></h2>
+  <p class="section-sub">We're conveniently located in Chirag Dilli. Come visit us or get in touch for any queries.</p>
+  <div class="contact-grid">
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div>
+          <h4>Address</h4>
+          <p>T/265/C5, Iron Railing Road<br>Chirag Dilli, New Delhi, Delhi 110017</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🕐</div>
+        <div>
+          <h4>Store Hours</h4>
+          <p>Monday – Saturday: 9:00 AM – 9:00 PM<br>Sunday: 10:00 AM – 6:00 PM</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <p><a href="tel:07982027471" style="color:white;font-size:1.05rem;font-weight:600;text-decoration:none;">07982 027471</a><br><span style="font-size:0.82rem;opacity:0.75;">Tap to call us directly</span></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🗺️</div>
+        <div>
+          <h4>Directions</h4>
+          <p>Near Iron Railing Road, Chirag Dilli<br>Easily accessible from South Delhi</p>
+        </div>
+      </div>
+    </div>
+    <div class="map-placeholder">
+      <div class="map-icon">🗺️</div>
+      <p>T/265/C5, Iron Railing Rd<br>Chirag Dilli, New Delhi – 110017</p>
+      <a class="map-link" href="https://maps.google.com/?q=T/265/C5,+Iron+Railing+Rd,+Chirag+Dilli,+New+Delhi,+Delhi+110017" target="_blank">Open in Google Maps →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Keshav Medicos</strong> · T/265/C5, Iron Railing Rd, Chirag Dilli, New Delhi 110017 · All rights reserved.</p>
+</footer>
+
+</body>
+</html>
